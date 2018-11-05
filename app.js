@@ -58,6 +58,17 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/api/', (req, res) => {
+  Airplane.find()
+  .then(customers => {
+    res.send(customers);
+  }).catch(err => {
+    res.status(500).send({
+        message: err.message
+    });
+  });
+});
+
 // Listen
 app.listen(3000, () => {
   console.log('Server listing on 3000');
