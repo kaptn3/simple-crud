@@ -1,0 +1,47 @@
+<html>
+    <head></head>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      td,
+      th {
+        border: 1px solid;
+        padding: 15px;
+      }
+
+      tr:nth-child(2n) {
+        background-color: lightskyblue;
+      }
+    </style>
+    <body>
+        <h1>Airplanes</h1>
+
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Registration Number</th>
+            <th>Serial Number</th>
+            <th>Manufacturer</th>
+          </tr>
+          <% for(let i = 0; i < airplanes.length; i++) { %>
+          <tr>
+            <td><%= airplanes[i].gid %></td>
+            <td><%= airplanes[i].regNumber %></td>
+            <td><%= airplanes[i].serialNumber %></td>
+            <td><%= airplanes[i].manufacturer %></td>
+          </tr>
+          <% } %>
+        </table>
+        <form action="/add" method="POST">
+          <input type="number" placeholder="gid" name="gid">
+          <input type="number" placeholder="regNumber" name="regNumber">
+          <input type="number" placeholder="serialNumber" name="serialNumber">
+          <button type="submit">Submit</button>
+        </form>
+
+        <a href="/api">API</a>
+    </body>
+</html>

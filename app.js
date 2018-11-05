@@ -47,3 +47,18 @@ let airplaneSchema = new mongoose.Schema({
   }
 });
 let Airplane = mongoose.model('Airplane', airplaneSchema);
+
+// Routes
+app.get('/', (req, res) => {
+  //res.sendFile(__dirname + '/views/index.html');
+  Airplane.find({}, (err, airplanes) => {
+    res.render('index', {
+      airplanes: airplanes
+    })
+  });
+});
+
+// Listen
+app.listen(3000, () => {
+  console.log('Server listing on 3000');
+})
