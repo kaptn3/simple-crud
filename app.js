@@ -13,10 +13,7 @@ app.set('view engine', 'html');
 
 //  Schema
 let airplaneSchema = new mongoose.Schema({
-  gid: {
-    type: Number,
-    required: true
-  },
+  _id: mongoose.Schema.Types.ObjectId,
   regNumber: {
     type: Number,
     default: 0
@@ -71,9 +68,8 @@ app.get('/api/', (req, res) => {
 
 // Add
 app.post('/add', (req, res) => {
-  //console.log(req.body);
   const airplaneData = new Airplane({
-    gid: req.body.gid,
+    _id: mongoose.Types.ObjectId(),
     regNumber: req.body.regNumber,
     serialNumber: req.body.serialNumber
   });

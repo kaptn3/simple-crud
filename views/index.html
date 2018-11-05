@@ -32,7 +32,7 @@
           </tr>
           <% for(let i = 0; i < airplanes.length; i++) { %>
           <tr>
-            <td><%= airplanes[i].gid %></td>
+            <td><%= i + 1 %></td>
             <td><%= airplanes[i].regNumber %></td>
             <td><%= airplanes[i].serialNumber %></td>
             <td><%= airplanes[i].manufacturer %></td>
@@ -44,7 +44,6 @@
           <% } %>
         </table>
         <form action="/add" method="POST">
-          <input type="number" placeholder="gid" name="gid">
           <input type="number" placeholder="regNumber" name="regNumber">
           <input type="number" placeholder="serialNumber" name="serialNumber">
           <button type="submit">Submit</button>
