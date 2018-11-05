@@ -25,6 +25,10 @@
             <th>Registration Number</th>
             <th>Serial Number</th>
             <th>Manufacturer</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Airlines</th>
+            <th>Status</th>
           </tr>
           <% for(let i = 0; i < airplanes.length; i++) { %>
           <tr>
@@ -32,6 +36,10 @@
             <td><%= airplanes[i].regNumber %></td>
             <td><%= airplanes[i].serialNumber %></td>
             <td><%= airplanes[i].manufacturer %></td>
+            <td><%= airplanes[i].type %></td>
+            <td><%= airplanes[i].date %></td>
+            <td><%= airplanes[i].airlines %></td>
+            <td><%= airplanes[i].status %></td>
           </tr>
           <% } %>
         </table>

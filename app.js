@@ -69,6 +69,21 @@ app.get('/api/', (req, res) => {
   });
 });
 
+// Add
+app.post('/add', (req, res) => {
+  //console.log(req.body);
+  const airplaneData = new Airplane({
+    gid: req.body.gid,
+    regNumber: req.body.regNumber,
+    serialNumber: req.body.serialNumber
+  });
+  airplaneData.save().then(result => {
+    res.redirect('/');
+  }).catch(err => {
+    res.status(400).send("Unable to save data");
+  });
+});
+
 // Listen
 app.listen(3000, () => {
   console.log('Server listing on 3000');
