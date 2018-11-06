@@ -79,7 +79,12 @@ app.post('/add', (req, res) => {
   const airplaneData = new Airplane({
     _id: mongoose.Types.ObjectId(),
     regNumber: req.body.regNumber,
-    serialNumber: req.body.serialNumber
+    serialNumber: req.body.serialNumber,
+    manufacturer: req.body.manufacturer,
+    type: req.body.type,
+    date: req.body.date,
+    airlines: req.body.airlines,
+    status: req.body.status
   });
   airplaneData.save().then(result => {
     res.redirect('/');
