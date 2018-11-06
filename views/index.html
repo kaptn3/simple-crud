@@ -44,10 +44,7 @@
                 class="edit">Save</button>
             </td>
             <td>
-              <form action="/delete" method="POST">
-                <input type="text" name="_id" :value="value._id" hidden>
-                <button>Delete</button>
-              </form>
+              <button @click="deleteData(value._id)">Delete</button>
             </td>
           </tr>
         </table>

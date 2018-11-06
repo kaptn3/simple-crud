@@ -47,6 +47,23 @@ var vueApp = new Vue({
           this.initData();
         }
       })
+    },
+    deleteData(id) {
+      fetch('api', {
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'id': id
+        })
+      })
+      .then(res => {
+        if (res.ok) return res.json()
+      }).
+      then(data => {
+        this.initData();
+      })
     }
   },
   mounted() {

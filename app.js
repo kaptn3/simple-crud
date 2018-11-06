@@ -89,8 +89,8 @@ app.post('/add', (req, res) => {
 });
 
 // Delete 
-app.post('/delete', (req, res) => {
-  Airplane.deleteOne({ _id: req.body._id }, function(err){
+app.delete('/api', (req, res) => {
+  Airplane.deleteOne({ _id: req.body.id }, function(err){
     if (!err) {
       res.redirect('/');
     }
