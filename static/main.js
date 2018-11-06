@@ -42,7 +42,10 @@ var vueApp = new Vue({
         })
       })
       .then(response => {
-        if (response.ok) window.location.reload()
+        if (response.ok) {
+          this.editedUser = null;
+          this.initData();
+        }
       })
     }
   },

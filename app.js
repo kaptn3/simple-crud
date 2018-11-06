@@ -98,7 +98,6 @@ app.post('/delete', (req, res) => {
 
 // Edit
 app.put('/api', (req, res) => {
-  console.log(req.body);
   Airplane.findByIdAndUpdate(req.body.id, {
     $set: {
       regNumber: req.body.regNumber,
