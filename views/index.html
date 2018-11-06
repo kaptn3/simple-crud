@@ -29,6 +29,7 @@
             <th>Date</th>
             <th>Airlines</th>
             <th>Status</th>
+            <th>Delete</th>
           </tr>
           <% for(let i = 0; i < airplanes.length; i++) { %>
           <tr>
@@ -40,12 +41,19 @@
             <td><%= airplanes[i].date %></td>
             <td><%= airplanes[i].airlines %></td>
             <td><%= airplanes[i].status %></td>
+            <td>
+              <form action="/delete" method="POST">
+                <input type="text" name="_id" value="<%= airplanes[i]._id %>" hidden>
+                <button>Delete</button>
+              </form>
+            </td>
           </tr>
           <% } %>
         </table>
         <form action="/add" method="POST">
           <input type="number" placeholder="regNumber" name="regNumber">
           <input type="number" placeholder="serialNumber" name="serialNumber">
+          <input type="date" name="date">
           <button type="submit">Submit</button>
         </form>
 

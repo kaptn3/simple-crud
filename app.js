@@ -41,7 +41,7 @@ let airplaneSchema = new mongoose.Schema({
   status: {
     type: String,
     default: 'null'
-  }
+  } 
 });
 let Airplane = mongoose.model('Airplane', airplaneSchema);
 
@@ -77,6 +77,18 @@ app.post('/add', (req, res) => {
     res.redirect('/');
   }).catch(err => {
     res.status(400).send("Unable to save data");
+  });
+});
+
+// Delete 
+app.post('/delete', (req, res) => {
+  Airplane.deleteOne({ _id: req.body._id }, function(err){
+    if (!err) {
+      res.redirect('/');
+    }
+    else {
+      res.status(400).send("Unable to delete data");
+    }
   });
 });
 
