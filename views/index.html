@@ -29,9 +29,9 @@
                 {{ value[index] }}
               </div>
               <div class="edit">
-                <input v-if="typeof(item) === 'string'" type="text" v-model="value[index]"/>
-                <input v-if="typeof(item) === 'number'" type="number" v-model="value[index]"/>
-                <input v-if="index === 'date'" type="date" v-model="value[index]"/>
+                <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="value[index]">
+                <input v-else-if="index === 'date'" type="date" v-model="value[index]">
+                <input v-else type="text" v-model="value[index]">
               </div>
             </td>
             <td>
