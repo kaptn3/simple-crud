@@ -59,6 +59,10 @@ app.get('/static/main.js', (req, res) => {
   res.sendFile(__dirname + '/static/main.js');
 });
 
+app.get('/static/styles.css', (req, res) => {
+  res.sendFile(__dirname + '/static/styles.css');
+});
+
 app.get('/api/', (req, res) => {
   Airplane.find()
   .then(airlines => {
