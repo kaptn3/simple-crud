@@ -55,13 +55,17 @@ app.get('/', (req, res) => {
   });
 });
 
+app.get('/static/main.js', (req, res) => {
+  res.sendFile(__dirname + '/static/main.js');
+});
+
 app.get('/api/', (req, res) => {
   Airplane.find()
-  .then(customers => {
-    res.send(customers);
+  .then(airlines => {
+    res.send(airlines);
   }).catch(err => {
     res.status(500).send({
-        message: err.message
+      message: err.message
     });
   });
 });
@@ -92,7 +96,30 @@ app.post('/delete', (req, res) => {
   });
 });
 
+// Edit
+app.put('/api', (req, res) => {
+  console.log(req.body);
+  Airplane.findByIdAndUpdate(req.body.id, {
+    $set: {
+      regNumber: req.body.regNumber,
+      serialNumber: req.body.serialNumber,
+      manufacturer: req.body.manufacturer,
+      type: req.body.type,
+      date: req.body.date,
+      airlines: req.body.airlines,
+      status: req.body.status
+    }
+  }, {
+    sort: {_id: -1},
+    upsert: true
+  }, (err, result) => {
+    if (err) return res.send(err)
+    res.send(result)
+  });
+});
+
 // Listen
-app.listen(3000, () => {
-  console.log('Server listing on 3000');
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server listing on ${port}`);
 })

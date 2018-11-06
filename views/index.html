@@ -15,10 +15,24 @@
       tr:nth-child(2n) {
         background-color: lightskyblue;
       }
+
+      [v-cloak] {
+        display: none;
+      }
+      .edit {
+        display: none;
+      }
+      .editing .edit {
+        display: block
+      }
+      .editing .view {
+        display: none;
+      }
     </style>
     <body>
+      <div class="app" v-cloak>
         <h1>Airplanes</h1>
-
+        <!--p>{{ data }}</p-->
         <table>
           <tr>
             <th>ID</th>
@@ -29,26 +43,86 @@
             <th>Date</th>
             <th>Airlines</th>
             <th>Status</th>
+            <th>Save</th>
             <th>Delete</th>
           </tr>
-          <% for(let i = 0; i < airplanes.length; i++) { %>
-          <tr>
-            <td><%= i + 1 %></td>
-            <td><%= airplanes[i].regNumber %></td>
-            <td><%= airplanes[i].serialNumber %></td>
-            <td><%= airplanes[i].manufacturer %></td>
-            <td><%= airplanes[i].type %></td>
-            <td><%= airplanes[i].date %></td>
-            <td><%= airplanes[i].airlines %></td>
-            <td><%= airplanes[i].status %></td>
+
+          <tr
+            v-for="(value, index) in data"
+            :class="{ editing: value._id == editedUser }"> 
+            <td>{{ index + 1 }}</td>
+            <td>
+              <div class="view">
+                {{ value.regNumber }}
+              </div>
+              <div class="edit">
+                <input type="number" v-model="value.regNumber"/>
+              </div>
+            </td>
+            <td>
+              <div class="view">
+                {{ value.serialNumber }}
+              </div>
+              <div class="edit">
+                <input type="number" v-model="value.serialNumber"/>
+              </div>
+            </td>
+            <td>
+              <div class="view">
+                {{ value.manufacturer }}
+              </div>
+              <div class="edit">
+                <input type="text" v-model="value.manufacturer"/>
+              </div>
+            </td>
+            <td>
+              <div class="view">
+                {{ value.type }}
+              </div>
+              <div class="edit">
+                <input type="text" v-model="value.type"/>
+              </div>
+            </td>
+            <td>
+              <div class="view">
+                {{ value.date }}
+              </div>
+              <div class="edit">
+                <input type="date" v-model="value.date"/>
+              </div>
+            </td>
+            <td>
+              <div class="view">
+                {{ value.airlines }}
+              </div>
+              <div class="edit">
+                <input type="text" v-model="value.airlines"/>
+              </div>
+            </td>
+            <td>
+              <div class="view">
+                {{ value.status }}
+              </div>
+              <div class="edit">
+                <input type="text" v-model="value.status"/>
+              </div>
+            </td>
+            <td>
+              <input type="text" name="_id" :value="value._id" hidden>
+              <button
+                class="view"
+                @click="editData(value._id)">Edit</button>
+              <button
+                @click="saveData(index)"
+                class="edit">Save</button>
+            </td>
             <td>
               <form action="/delete" method="POST">
-                <input type="text" name="_id" value="<%= airplanes[i]._id %>" hidden>
+                <input type="text" name="_id" :value="value._id" hidden>
                 <button>Delete</button>
               </form>
             </td>
           </tr>
-          <% } %>
         </table>
         <form action="/add" method="POST">
           <input type="number" placeholder="regNumber" name="regNumber">
@@ -56,7 +130,9 @@
           <input type="date" name="date">
           <button type="submit">Submit</button>
         </form>
-
-        <a href="/api">API</a>
-    </body>
+      </div>
+      <a href="/api">API</a>
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="/static/main.js"></script>
+  </body>
 </html>
