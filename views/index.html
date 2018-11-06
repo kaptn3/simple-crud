@@ -48,63 +48,17 @@
           </tr>
 
           <tr
-            v-for="(value, index) in data"
+            v-for="(value, id) in data"
             :class="{ editing: value._id == editedUser }"> 
-            <td>{{ index + 1 }}</td>
-            <td>
+            <td>{{ id + 1 }}</td>
+            <td v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
               <div class="view">
-                {{ value.regNumber }}
+                {{ value[index] }}
               </div>
               <div class="edit">
-                <input type="number" v-model="value.regNumber"/>
-              </div>
-            </td>
-            <td>
-              <div class="view">
-                {{ value.serialNumber }}
-              </div>
-              <div class="edit">
-                <input type="number" v-model="value.serialNumber"/>
-              </div>
-            </td>
-            <td>
-              <div class="view">
-                {{ value.manufacturer }}
-              </div>
-              <div class="edit">
-                <input type="text" v-model="value.manufacturer"/>
-              </div>
-            </td>
-            <td>
-              <div class="view">
-                {{ value.type }}
-              </div>
-              <div class="edit">
-                <input type="text" v-model="value.type"/>
-              </div>
-            </td>
-            <td>
-              <div class="view">
-                {{ value.date }}
-              </div>
-              <div class="edit">
-                <input type="date" v-model="value.date"/>
-              </div>
-            </td>
-            <td>
-              <div class="view">
-                {{ value.airlines }}
-              </div>
-              <div class="edit">
-                <input type="text" v-model="value.airlines"/>
-              </div>
-            </td>
-            <td>
-              <div class="view">
-                {{ value.status }}
-              </div>
-              <div class="edit">
-                <input type="text" v-model="value.status"/>
+                <input v-if="typeof(item) === 'string'" type="text" v-model="value[index]"/>
+                <input v-if="typeof(item) === 'number'" type="number" v-model="value[index]"/>
+                <input v-if="index === 'date'" type="date" v-model="value[index]"/>
               </div>
             </td>
             <td>
@@ -113,7 +67,7 @@
                 class="view"
                 @click="editData(value._id)">Edit</button>
               <button
-                @click="saveData(index)"
+                @click="saveData(id)"
                 class="edit">Save</button>
             </td>
             <td>
