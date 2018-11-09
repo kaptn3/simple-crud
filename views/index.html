@@ -1,66 +1,77 @@
 <html>
-    <head>
-      <link rel="stylesheet" href="/static/styles.css">
-    </head>
-    <body>
-      <div class="app" v-cloak>
-        <h1>Airplanes</h1>
-        <!--p>{{ data }}</p-->
-        <table>
-          <tr>
-            <th>ID</th>
-            <th>Registration Number</th>
-            <th>Serial Number</th>
-            <th>Manufacturer</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Airlines</th>
-            <th>Status</th>
-            <th>Save</th>
-            <th>Delete</th>
-          </tr>
 
-          <tr
-            v-for="(value, id) in data"
-            :class="{ editing: value._id == editedUser }"> 
-            <td>{{ id + 1 }}</td>
-            <td v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
-              <div class="view">
-                {{ value[index] }}
-              </div>
-              <div class="edit">
-                <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="value[index]">
-                <input v-else-if="index === 'date'" type="date" v-model="value[index]">
-                <input v-else type="text" v-model="value[index]">
-              </div>
-            </td>
-            <td>
-              <input type="text" name="_id" :value="value._id" hidden>
-              <button
-                class="view"
-                @click="editData(value._id)">Edit</button>
-              <button
-                @click="saveData(id)"
-                class="edit">Save</button>
-            </td>
-            <td>
-              <button @click="deleteData(value._id)">Delete</button>
-            </td>
-          </tr>
-        </table>
-        <form action="/add" method="POST">
-          <input type="number" placeholder="Registration Number" name="regNumber">
-          <input type="number" placeholder="Serial Number" name="serialNumber">
-          <input type="text" placeholder="Manufacturer" name="manufacturer">
-          <input type="text" placeholder="Type" name="type">
-          <input type="date" placeholder="Date" name="date">
-          <input type="text" placeholder="Airlines" name="airlines">
-          <input type="text" placeholder="Status" name="status">
-          <button>Submit</button>
-        </form>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+  <div class="app" v-cloak>
+    <div class="container">
+      <h1>Airplanes</h1>
+      <!--p>{{ data }}</p-->
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Registration Number</th>
+          <th>Serial Number</th>
+          <th>Manufacturer</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Airlines</th>
+          <th>Status</th>
+          <th>Save</th>
+          <th>Delete</th>
+        </tr>
+
+        <tr v-for="(value, id) in data" :class="{ editing: value._id == editedUser }">
+          <td>{{ id + 1 }}</td>
+          <td v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
+            <div class="view">
+              {{ value[index] }}
+            </div>
+            <div class="edit">
+              <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="value[index]">
+              <input v-else-if="index === 'date'" type="date" v-model="value[index]">
+              <input v-else type="text" v-model="value[index]">
+            </div>
+          </td>
+          <td>
+            <input type="text" name="_id" :value="value._id" hidden>
+            <button class="view" @click="editData(value._id)">Edit</button>
+            <button @click="saveData(id)" class="edit">Save</button>
+          </td>
+          <td>
+            <button @click="deleteData(value._id)">Delete</button>
+          </td>
+        </tr>
+      </table>
+
+      <div class="links-group">
+        <a class="link" @click="openModal">Add new</a>
+        <a class="link" target="_blank" href="/api">API</a>
       </div>
-      <a href="/api">API</a>
-      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-      <script src="/static/main.js"></script>
-  </body>
+
+    </div>
+    <div v-if="isOpenModal" class="modal">
+      <div class="modal-wrapper">
+        <h1 class="add-new__title">Add new airplane</h1>
+        <input type="number" placeholder="Registration Number" v-model="form.regNumber" name="regNumber">
+        <input type="number" placeholder="Serial Number" v-model="form.serialNumber" name="serialNumber">
+        <input type="text" placeholder="Manufacturer" v-model="form.manufacturer" name="manufacturer">
+        <input type="text" placeholder="Type" v-model="form.type" name="type">
+        <input type="date" placeholder="Date" v-model="form.date" name="date">
+        <input type="text" placeholder="Airlines" v-model="form.airlines" name="airlines">
+        <input type="text" placeholder="Status" v-model="form.status" name="status">
+        <button @click="sendData">Submit</button>
+      </div>
+      <a class="close" @click="openModal">Close</a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="/static/main.js"></script>
+</body>
+
 </html>

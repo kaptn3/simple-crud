@@ -8,8 +8,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
 
 //  Schema
 let airplaneSchema = new mongoose.Schema({
@@ -47,12 +45,7 @@ let Airplane = mongoose.model('Airplane', airplaneSchema);
 
 // Routes
 app.get('/', (req, res) => {
-  //res.sendFile(__dirname + '/views/index.html');
-  Airplane.find({}, (err, airplanes) => {
-    res.render('index', {
-      airplanes: airplanes
-    })
-  });
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 app.get('/static/main.js', (req, res) => {
@@ -75,7 +68,7 @@ app.get('/api/', (req, res) => {
 });
 
 // Add
-app.post('/add', (req, res) => {
+app.post('/api', (req, res) => {
   const airplaneData = new Airplane({
     _id: mongoose.Types.ObjectId(),
     regNumber: req.body.regNumber,

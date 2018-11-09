@@ -4,7 +4,17 @@ var vueApp = new Vue({
   data() {
     return {
       data: 0,
-      editedUser: null
+      editedUser: null,
+      isOpenModal: false,
+      form: {
+        regNumber: 0,
+        serialNumber: 0,
+        manufacturer: 0,
+        type: 0,
+        date: 0,
+        airlines: 0,
+        status: 0
+      }
     }
   },
   methods: {
@@ -23,6 +33,29 @@ var vueApp = new Vue({
     },
     editData(id) {
       this.editedUser = id
+    },
+    sendData() {
+      fetch('api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'id': this.form._id,
+          'regNumber': this.form.regNumber,
+          'serialNumber': this.form.serialNumber,
+          'manufacturer': this.form.manufacturer,
+          'type': this.form.type,
+          'date': this.form.date,
+          'airlines': this.form.airlines,
+          'status': this.form.status
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          this.initData();
+        }
+      })
     },
     saveData(index) {
       fetch('api', {
@@ -64,6 +97,9 @@ var vueApp = new Vue({
       then(data => {
         this.initData();
       })
+    },
+    openModal() {
+      this.isOpenModal = !this.isOpenModal;
     }
   },
   mounted() {

@@ -1,9 +1,45 @@
 .app {
   font-family: Helvetica, sans-serif;
-  margin: 0 auto;
-  width: 992px;
+  padding-top: 40px;
 }
 
 .add-new__title {
   text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  width: 1200px;
+}
+
+.links-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.link {
+  display: block;
+  width: 46%;
+  padding: 15px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  background: linear-gradient(40deg, #ec8a97, #1e46f5);
+  opacity: .8;
+  margin-top: 15px;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+button {
+  white-space: nowrap;
+}
+
+input {
+  max-width: 100%;
 }
