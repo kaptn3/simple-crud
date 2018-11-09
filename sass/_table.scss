@@ -1,0 +1,31 @@
+table {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+td,
+th {
+  border: 1px solid;
+  padding: 15px;
+}
+
+tr:nth-child(2n - 1) {
+  background-color: rgba($color: #ec8a97, $alpha: .3);
+}
+
+tr:nth-child(2n) {
+  background-color: rgba($color: #87cefa, $alpha: .3);
+}
+
+[v-cloak] {
+  display: none;
+}
+.edit {
+  display: none;
+}
+.editing .edit {
+  display: block
+}
+.editing .view {
+  display: none;
+}
