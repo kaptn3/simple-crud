@@ -326,14 +326,15 @@ tr:nth-child(2n) {
   display: none; }
 
 .app {
-  font-family: Helvetica, sans-serif; }
+  font-family: Helvetica, sans-serif;
+  padding-top: 40px; }
 
 .add-new__title {
   text-align: center; }
 
 .container {
   margin: 0 auto;
-  width: 1200px; }
+  padding: 20px; }
 
 .links-group {
   width: 100%;
