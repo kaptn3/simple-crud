@@ -52,7 +52,7 @@ app.get('/static/main.js', (req, res) => {
   res.sendFile(__dirname + '/static/main.js');
 });
 
-app.get('/static/style.css', (req, res) => {
+app.get('/static/css/style.css', (req, res) => {
   res.sendFile(__dirname + '/static/style.css');
 });
 
