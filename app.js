@@ -53,7 +53,7 @@ app.get('/static/main.js', (req, res) => {
 });
 
 app.get('/static/css/style.css', (req, res) => {
-  res.sendFile(__dirname + '/static/style.css');
+  res.sendFile(__dirname + '/static/css/style.css');
 });
 
 app.get('/api/', (req, res) => {
