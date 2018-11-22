@@ -12,43 +12,36 @@
   <div class="app" v-cloak>
     <div class="container">
       <h1>Airplanes</h1>
-      <!--p>{{ data }}</p-->
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Registration Number</th>
-          <th>Serial Number</th>
-          <th>Manufacturer</th>
-          <th>Type</th>
-          <th>Date</th>
-          <th>Airlines</th>
-          <th>Status</th>
-          <th>Save</th>
-          <th>Delete</th>
-        </tr>
+      <div class="tables">
+        <table v-for="(value, number) in data" :class="{ editing: value._id == editedUser }">
+          <tr>
+            <th>Name</th>
+            <th>Value</th>
+          </tr>
 
-        <tr v-for="(value, id) in data" :class="{ editing: value._id == editedUser }">
-          <td>{{ id + 1 }}</td>
-          <td v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
-            <div class="view">
-              {{ value[index] }}
-            </div>
-            <div class="edit">
-              <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="value[index]">
-              <input v-else-if="index === 'date'" type="date" v-model="value[index]">
-              <input v-else type="text" v-model="value[index]">
-            </div>
-          </td>
-          <td>
-            <input type="text" name="_id" :value="value._id" hidden>
-            <button class="view" @click="editData(value._id)">Edit</button>
-            <button @click="saveData(id)" class="edit">Save</button>
-          </td>
-          <td>
-            <button @click="deleteData(value._id)">Delete</button>
-          </td>
-        </tr>
-      </table>
+          <tr v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
+            <td>{{ index }}</td>
+            <td>
+              <div class="view">
+                {{ item }}
+              </div>
+              <div class="edit">
+                <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="value[index]">
+                <input v-else-if="index === 'date'" type="date" v-model="value[index]">
+                <input v-else type="text" v-model="value[index]">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="table-button">
+              <input type="text" name="_id" :value="value._id" hidden>
+              <button class="view" @click="editData(value._id)">Edit</button>
+              <button @click="saveData(number)" class="edit">Save</button>
+            </td>
+            <td class="table-button"><button @click="deleteData(value._id)">Delete</button></td>
+          </tr>
+        </table>
+      </div>
 
       <div class="links-group">
         <a class="link" @click="openModal">Add new</a>

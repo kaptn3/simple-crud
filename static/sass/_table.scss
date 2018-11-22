@@ -1,10 +1,17 @@
+.tables {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 table {
   border-collapse: collapse;
   margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 td,
 th {
+  text-align: left;
   border: 1px solid;
   padding: 15px;
   word-break: break-all;
@@ -29,4 +36,25 @@ tr:nth-child(2n) {
 }
 .editing .view {
   display: none;
+}
+
+.table-button {
+  padding: 0;
+}
+
+.table-button > button {
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  background: #87cefa;
+  opacity: .8;
+}
+
+.table-button:nth-child(2) > button {
+  background: #ec8a97;
+}
+
+.table-button > button:hover,
+.table-button > button:focus {
+  opacity: 1;
 }
