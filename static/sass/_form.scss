@@ -1,5 +1,5 @@
 .modal-wrapper {
-  width: 400px;
+  max-width: 600px;
   margin: 0 auto;
 
   input {
@@ -10,16 +10,16 @@
   }
 
   &__input {
-    &:first-child {
+    &:first-child > input {
       border-radius: 4px 4px 0 0;
     }
 
-    &:last-child {
+    &:last-child > input {
       border-radius: 0 0 4px 4px;
     }
   }
 
-  &__input + &__input {
+  &__input + &__input > input{
     border-top: none;
   }
 

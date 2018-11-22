@@ -52,7 +52,12 @@
     <div v-if="isOpenModal" class="modal">
       <div class="modal-wrapper">
         <h1 class="add-new__title">Add new airplane</h1>
-        <input v-for="(item, index) in form" type="text" :placeholder="index" v-model="form[index]" name="index" class="modal-wrapper__input">
+        <div v-for="(item, index) in form" class="modal-wrapper__input">
+          <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="form[index]" name="index" :placeholder="index">
+          <input v-else-if="index === 'date'" type="date" v-model="form[index]" name="index" :placeholder="index">
+          <input v-else type="text" v-model="form[index]" name="index" :placeholder="index">
+        </div>
+        
         <h3 v-if="newForm.length">New fields</h3>
         <div v-for="(input, index) in newForm" class="add-new__field">
           <input type="text" v-model="input.one">
