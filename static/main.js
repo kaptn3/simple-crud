@@ -40,16 +40,9 @@ var vueApp = new Vue({
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          'id': this.form._id,
-          'regNumber': this.form.regNumber,
-          'serialNumber': this.form.serialNumber,
-          'manufacturer': this.form.manufacturer,
-          'type': this.form.type,
-          'date': this.form.date,
-          'airlines': this.form.airlines,
-          'status': this.form.status
-        })
+        body: JSON.stringify(
+          this.form
+        )
       })
       .then(response => {
         if (response.ok) {

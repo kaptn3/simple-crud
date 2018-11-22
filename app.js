@@ -11,7 +11,6 @@ app.use(bodyParser.urlencoded({
 
 //  Schema
 let airplaneSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   regNumber: {
     type: Number,
     default: 0
@@ -69,20 +68,12 @@ app.get('/api/', (req, res) => {
 
 // Add
 app.post('/api', (req, res) => {
-  const airplaneData = new Airplane({
-    _id: mongoose.Types.ObjectId(),
-    regNumber: req.body.regNumber,
-    serialNumber: req.body.serialNumber,
-    manufacturer: req.body.manufacturer,
-    type: req.body.type,
-    date: req.body.date,
-    airlines: req.body.airlines,
-    status: req.body.status
-  });
+  console.log(req.body);
+  const airplaneData = new Airplane(req.body);
   airplaneData.save().then(result => {
     res.redirect('/');
   }).catch(err => {
-    res.status(400).send("Unable to save data");
+    console.warn(err);
   });
 });
 
@@ -101,15 +92,7 @@ app.delete('/api', (req, res) => {
 // Edit
 app.put('/api', (req, res) => {
   Airplane.findByIdAndUpdate(req.body.id, {
-    $set: {
-      regNumber: req.body.regNumber,
-      serialNumber: req.body.serialNumber,
-      manufacturer: req.body.manufacturer,
-      type: req.body.type,
-      date: req.body.date,
-      airlines: req.body.airlines,
-      status: req.body.status
-    }
+    $set: req.body
   }, {
     sort: {_id: -1},
     upsert: true
