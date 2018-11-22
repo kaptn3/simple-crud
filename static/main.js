@@ -6,15 +6,8 @@ var vueApp = new Vue({
       data: 0,
       editedUser: null,
       isOpenModal: false,
-      form: {
-        regNumber: '',
-        serialNumber: '',
-        manufacturer: '',
-        type: '',
-        date: '',
-        airlines: '',
-        status: ''
-      }
+      form: {},
+      newForm: []
     }
   },
   methods: {
@@ -35,6 +28,9 @@ var vueApp = new Vue({
       this.editedUser = id
     },
     sendData() {
+      for (i in this.newForm) {
+        this.form[this.newForm[i].one] = this.newForm[i].two;
+      }
       fetch('api', {
         method: 'POST',
         headers: {
@@ -57,16 +53,9 @@ var vueApp = new Vue({
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          'id': this.data[index]._id,
-          'regNumber': this.data[index].regNumber,
-          'serialNumber': this.data[index].serialNumber,
-          'manufacturer': this.data[index].manufacturer,
-          'type': this.data[index].type,
-          'date': this.data[index].date,
-          'airlines': this.data[index].airlines,
-          'status': this.data[index].status
-        })
+        body: JSON.stringify(
+          this.data[index]
+        )
       })
       .then(response => {
         if (response.ok) {
@@ -94,9 +83,27 @@ var vueApp = new Vue({
     },
     openModal() {
       this.isOpenModal = true;
+      this.form = {
+        regNumber: '',
+        serialNumber: '',
+        manufacturer: '',
+        type: '',
+        date: '',
+        airlines: '',
+        status: ''
+      }
     },
     closeModal() {
       this.isOpenModal = false;
+    },
+    addNewField() {
+      this.newForm.push({
+        one: '',
+        two: ''
+      });
+    },
+    deleteNewField(index) {
+      this.newForm.splice(index,1)
     }
   },
   mounted() {

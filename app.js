@@ -68,8 +68,7 @@ app.get('/api/', (req, res) => {
 
 // Add
 app.post('/api', (req, res) => {
-  console.log(req.body);
-  const airplaneData = new Airplane(req.body);
+  const airplaneData = new Airplane(req.body, false);
   airplaneData.save().then(result => {
     res.redirect('/');
   }).catch(err => {
@@ -91,7 +90,8 @@ app.delete('/api', (req, res) => {
 
 // Edit
 app.put('/api', (req, res) => {
-  Airplane.findByIdAndUpdate(req.body.id, {
+  console.log(req.body)
+  Airplane.findByIdAndUpdate(req.body._id, {
     $set: req.body
   }, {
     sort: {_id: -1},
