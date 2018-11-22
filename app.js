@@ -90,7 +90,6 @@ app.delete('/api', (req, res) => {
 
 // Edit
 app.put('/api', (req, res) => {
-  console.log(req.body)
   Airplane.findByIdAndUpdate(req.body._id, {
     $set: req.body
   }, {

@@ -29,7 +29,9 @@ var vueApp = new Vue({
     },
     sendData() {
       for (i in this.newForm) {
-        this.form[this.newForm[i].one] = this.newForm[i].two;
+        if(this.newForm[i].one && typeof(this.newForm[i].one) === 'string' && this.newForm[i].two) {
+          this.form[this.newForm[i].one] = this.newForm[i].two;
+        }
       }
       fetch('api', {
         method: 'POST',
@@ -91,7 +93,8 @@ var vueApp = new Vue({
         date: '',
         airlines: '',
         status: ''
-      }
+      },
+      this.newForm = [];
     },
     closeModal() {
       this.isOpenModal = false;
@@ -103,7 +106,7 @@ var vueApp = new Vue({
       });
     },
     deleteNewField(index) {
-      this.newForm.splice(index,1)
+      this.newForm.splice(index,1);
     }
   },
   mounted() {
