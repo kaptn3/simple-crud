@@ -9,6 +9,15 @@ table {
   margin-right: 20px;
 }
 
+tr > td:last-child {
+  width: 255px;
+  height: 60px;
+}
+
+td input {
+  width: 100%;
+}
+
 td,
 th {
   text-align: left;
@@ -48,6 +57,7 @@ tr:nth-child(2n) {
   text-align: left;
   background: #87cefa;
   opacity: .8;
+  height: 60px;
 }
 
 .table-button:nth-child(2) > button {
