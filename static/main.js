@@ -7,13 +7,13 @@ var vueApp = new Vue({
       editedUser: null,
       isOpenModal: false,
       form: {
-        regNumber: 0,
-        serialNumber: 0,
-        manufacturer: 0,
-        type: 0,
-        date: 0,
-        airlines: 0,
-        status: 0
+        regNumber: '',
+        serialNumber: '',
+        manufacturer: '',
+        type: '',
+        date: '',
+        airlines: '',
+        status: ''
       }
     }
   },
@@ -54,6 +54,7 @@ var vueApp = new Vue({
       .then(response => {
         if (response.ok) {
           this.initData();
+          this.closeModal();
         }
       })
     },
@@ -99,7 +100,10 @@ var vueApp = new Vue({
       })
     },
     openModal() {
-      this.isOpenModal = !this.isOpenModal;
+      this.isOpenModal = true;
+    },
+    closeModal() {
+      this.isOpenModal = false;
     }
   },
   mounted() {
