@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+app.use(express.static(__dirname + '/static'));
+
 //  Schema
 let airplaneSchema = new mongoose.Schema({
   regNumber: {
@@ -45,14 +47,6 @@ let Airplane = mongoose.model('Airplane', airplaneSchema);
 // Routes
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
-});
-
-app.get('/static/main.js', (req, res) => {
-  res.sendFile(__dirname + '/static/main.js');
-});
-
-app.get('/static/css/style.css', (req, res) => {
-  res.sendFile(__dirname + '/static/css/style.css');
 });
 
 app.get('/api/', (req, res) => {
