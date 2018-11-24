@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/static'));
 //  Schema
 let airplaneSchema = new mongoose.Schema({
   regNumber: {
-    type: Number,
+    type: String,
     default: 0
   },
   serialNumber: {
@@ -23,11 +23,11 @@ let airplaneSchema = new mongoose.Schema({
   },
   manufacturer: {
     type: String,
-    default: 'null'
+    default: 'none'
   },
   type: {
     type: String,
-    default: 'null'
+    default: 'none'
   },
   date: {
     type: Date,
@@ -35,11 +35,11 @@ let airplaneSchema = new mongoose.Schema({
   },
   airlines: {
     type: String,
-    default: 'null'
+    default: 'none'
   },
   status: {
     type: String,
-    default: 'null'
+    default: 'none'
   } 
 });
 let Airplane = mongoose.model('Airplane', airplaneSchema);

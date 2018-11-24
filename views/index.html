@@ -26,7 +26,7 @@
                 {{ item }}
               </div>
               <div class="edit">
-                <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="value[index]">
+                <input v-if="index === 'serialNumber'" type="number" v-model="value[index]">
                 <input v-else-if="index === 'date'" type="date" v-model="value[index]">
                 <input v-else type="text" v-model="value[index]">
               </div>
@@ -53,7 +53,7 @@
       <div class="modal-wrapper">
         <h1 class="add-new__title">Add new airplane</h1>
         <div v-for="(item, index) in form" class="modal-wrapper__input">
-          <input v-if="index === 'serialNumber' || index === 'regNumber'" type="number" v-model="form[index]" name="index" :placeholder="index">
+          <input v-if="index === 'serialNumber'" type="number" v-model="form[index]" name="index" :placeholder="index">
           <input v-else-if="index === 'date'" type="date" v-model="form[index]" name="index" :placeholder="index">
           <input v-else type="text" v-model="form[index]" name="index" :placeholder="index">
         </div>
