@@ -11,89 +11,13 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static(__dirname + '/static'));
 
-//  Schema
-let airplaneSchema = new mongoose.Schema({
-  regNumber: {
-    type: String,
-    default: 0
-  },
-  serialNumber: {
-    type: Number,
-    default: 0
-  },
-  manufacturer: {
-    type: String,
-    default: 'none'
-  },
-  type: {
-    type: String,
-    default: 'none'
-  },
-  date: {
-    type: Date,
-    default: null
-  },
-  airlines: {
-    type: String,
-    default: 'none'
-  },
-  status: {
-    type: String,
-    default: 'none'
-  } 
-});
-let Airplane = mongoose.model('Airplane', airplaneSchema);
-
 // Routes
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile('/views/index.html', { root: __dirname });
 });
 
-app.get('/api/', (req, res) => {
-  Airplane.find()
-  .then(airlines => {
-    res.send(airlines);
-  }).catch(err => {
-    res.status(500).send({
-      message: err.message
-    });
-  });
-});
-
-// Add
-app.post('/api', (req, res) => {
-  const airplaneData = new Airplane(req.body, false);
-  airplaneData.save().then(result => {
-    res.redirect('/');
-  }).catch(err => {
-    console.warn(err);
-  });
-});
-
-// Delete 
-app.delete('/api', (req, res) => {
-  Airplane.deleteOne({ _id: req.body.id }, function(err){
-    if (!err) {
-      res.redirect('/');
-    }
-    else {
-      res.status(400).send("Unable to delete data");
-    }
-  });
-});
-
-// Edit
-app.put('/api', (req, res) => {
-  Airplane.findByIdAndUpdate(req.body._id, {
-    $set: req.body
-  }, {
-    sort: {_id: -1},
-    upsert: true
-  }, (err, result) => {
-    if (err) return res.send(err)
-    res.send(result)
-  });
-});
+var routes = require('./config/routes.js');
+app.use('/', routes);
 
 // Listen
 const port = 3000;
