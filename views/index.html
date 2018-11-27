@@ -1,73 +1,89 @@
-<html>
+<html lang="en">
 
 <head>
-  <link rel="stylesheet" href="/css/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Airplanes database</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
   <div class="app" v-cloak>
     <div class="container">
-      <h1>Airplanes</h1>
-      <div class="tables">
-        <table v-for="(value, number) in data" :class="{ editing: value._id == editedUser }">
-          <tr>
-            <th>Name</th>
-            <th>Value</th>
-          </tr>
-
-          <tr v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
-            <td>{{ index }}</td>
-            <td>
-              <div class="view">
-                {{ item }}
-              </div>
-              <div class="edit">
-                <input v-if="index === 'serialNumber'" type="number" v-model="value[index]">
-                <input v-else-if="index === 'date'" type="date" v-model="value[index]">
-                <input v-else type="text" v-model="value[index]">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="table-button">
-              <input type="text" name="_id" :value="value._id" hidden>
-              <button class="view" @click="editData(value._id)">Edit</button>
-              <button @click="saveData(number)" class="edit">Save</button>
-            </td>
-            <td class="table-button"><button @click="deleteData(value._id)">Delete</button></td>
-          </tr>
-        </table>
+      <h1 class="display-4">Airplanes</h1>
+      <div class="row">
+        <div v-for="(value, number) in data" class="col col-md-4">
+          <table :class="{ editing: value._id == editedUser }" class="table table-bordered table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th>Name</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tr v-for="(item, index) in value" v-if="(index !== '_id' && index !== '__v')">
+              <td>{{ index }}</td>
+              <td>
+                <div class="view">
+                  {{ item }}
+                </div>
+                <div class="edit">
+                  <input class="form-control" v-if="index === 'serialNumber'" type="number" v-model="value[index]">
+                  <input class="form-control" v-else-if="index === 'date'" type="date" v-model="value[index]">
+                  <input class="form-control" v-else type="text" v-model="value[index]">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="table-button">
+                <input class="form-control" type="text" name="_id" :value="value._id" hidden>
+                <button class="btn btn-warning btn-block view" @click="editData(value._id)">Edit</button>
+                <button class="btn btn-success btn-block edit" @click="saveData(number)">Save</button>
+              </td>
+              <td class="table-button"><button class="btn btn-danger btn-block" @click="deleteData(value._id)">Delete</button></td>
+            </tr>
+          </table>
+        </div>
       </div>
 
       <div class="links-group">
-        <a class="link" @click="openModal">Add new</a>
-        <a class="link" target="_blank" href="/api">API</a>
+        <a @click="openModal" class="btn btn-outline-primary btn-lg btn-block" role="button" aria-disabled="true">Add
+          new</a>
+        <a target="_blank" href="/api" class="btn btn-primary btn-lg btn-block" role="button" aria-disabled="true">API</a>
       </div>
-
     </div>
-    <div v-if="isOpenModal" class="modal">
-      <div class="modal-wrapper">
-        <h1 class="add-new__title">Add new airplane</h1>
-        <div v-for="(item, index) in form" class="modal-wrapper__input">
-          <input v-if="index === 'serialNumber'" type="number" v-model="form[index]" name="index" :placeholder="index">
-          <input v-else-if="index === 'date'" type="date" v-model="form[index]" name="index" :placeholder="index">
-          <input v-else type="text" v-model="form[index]" name="index" :placeholder="index">
+
+    <div v-if="isOpenModal" class="vue-modal">
+      <div class="modal-content vue-modal-wrapper">
+        <div class="modal-header">
+          <h5 class="modal-title">Add new airplane</h5>
+          <button @click="closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        
+        <div class="form-group">
+          <div v-for="(item, index) in form" class="modal-wrapper__input">
+            <input v-if="index === 'serialNumber'" type="number" v-model="form[index]" name="index" :placeholder="index"
+              class="form-control">
+            <input v-else-if="index === 'date'" type="date" v-model="form[index]" name="index" :placeholder="index"
+              class="form-control">
+            <input v-else type="text" v-model="form[index]" name="index" :placeholder="index" class="form-control">
+          </div>
+        </div>
+
         <h3 v-if="newForm.length">New fields</h3>
         <div v-for="(input, index) in newForm" class="add-new__field">
-          <input type="text" v-model="input.one">
-          <input type="text" v-model="input.two">
-          <button class="add-new__delete" @click="deleteNewField(index)">Delete</button>
+          <input class="form-control add-new__input" type="text" v-model="input.one" placeholder="Name field">
+          <input class="form-control add-new__input" type="text" v-model="input.two" placeholder="Value field">
+          <button class="add-new__delete" @click="deleteNewField(index)">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <button @click="addNewField">Add new field</button>
-        <button @click="sendData">Submit</button>
+        <button @click="addNewField" class="btn btn-primary btn-lg btn-block">Add new field</button>
+        <button @click="sendData" class="btn btn-secondary btn-lg btn-block">Submit</button>
       </div>
-      <a class="close" @click="closeModal">Close</a>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
