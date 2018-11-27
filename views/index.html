@@ -63,13 +63,14 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form v-on:submit.prevent="sendData()">
         <div class="form-group">
           <div v-for="(item, index) in form" class="modal-wrapper__input">
             <input v-if="index === 'serialNumber'" type="number" v-model="form[index]" name="index" :placeholder="index"
-              class="form-control">
+              class="form-control" min="1" max="100" required>
             <input v-else-if="index === 'date'" type="date" v-model="form[index]" name="index" :placeholder="index"
-              class="form-control">
-            <input v-else type="text" v-model="form[index]" name="index" :placeholder="index" class="form-control">
+              class="form-control" required>
+            <input v-else type="text" v-model="form[index]" name="index" :placeholder="index" class="form-control" required>
           </div>
         </div>
 
@@ -77,12 +78,13 @@
         <div v-for="(input, index) in newForm" class="add-new__field">
           <input class="form-control add-new__input" type="text" v-model="input.one" placeholder="Name field">
           <input class="form-control add-new__input" type="text" v-model="input.two" placeholder="Value field">
-          <button class="add-new__delete" @click="deleteNewField(index)">
+          <button class="add-new__delete" @click="deleteNewField(index)" type="button">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <button @click="addNewField" class="btn btn-primary btn-lg btn-block">Add new field</button>
-        <button @click="sendData" class="btn btn-secondary btn-lg btn-block">Submit</button>
+        <button @click="addNewField" class="btn btn-primary btn-lg btn-block" type="button">Add new field</button>
+        <button class="btn btn-secondary btn-lg btn-block" type="submit">Submit</button>
+        </form>
       </div>
     </div>
   </div>
